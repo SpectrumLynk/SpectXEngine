@@ -1,0 +1,121 @@
+// Prisma schema - supports PostgreSQL, MySQL, MongoDB, SQLite
+// System.json: database.supported_engines
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = env("DATABASE_PROVIDER") // postgresql, mysql, mongodb, sqlite
+  url      = env("DATABASE_URL")
+}
+
+// User model with MFA support
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  name          String?
+  
+  // MFA fields (system.json: mandatory)
+  mfaEnabled    Boolean   @default(false)
+  totpSecret    String?
+  backupCodes   String[]
+  webauthnCredentials WebAuthnCredential[]
+  
+  // RBAC
+  roles         Role[]
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastLoginAt   DateTime?
+  
+  sessions      Session[]
+  auditLogs     AuditLog[]
+  
+  @@index([email])
+}
+
+// WebAuthn (Passkeys) support
+model WebAuthnCredential {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  credentialId    String   @unique
+  publicKey       String
+  counter         Int      @default(0)
+  transports      String[]
+  
+  createdAt       DateTime @default(now())
+  lastUsedAt      DateTime?
+  
+  @@index([userId])
+}
+
+// Stateless session tokens
+model Session {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  token         String   @unique
+  expiresAt     DateTime
+  
+  ipAddress     String?
+  userAgent     String?
+  
+  createdAt     DateTime @default(now())
+  
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+}
+
+// RBAC - Roles
+model Role {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  description String?
+  
+  permissions Permission[]
+  users       User[]
+  
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+// RBAC - Permissions
+model Permission {
+  id          String   @id @default(cuid())
+  resource    String
+  action      String
+  
+  roles       Role[]
+  
+  createdAt   DateTime @default(now())
+  
+  @@unique([resource, action])
+}
+
+// Immutable audit logs
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  action      String
+  resource    String
+  details     Json?
+  
+  ipAddress   String?
+  userAgent   String?
+  success     Boolean
+  
+  timestamp   DateTime @default(now())
+  
+  @@index([userId])
+  @@index([action])
+  @@index([resource])
+  @@index([timestamp])
+}

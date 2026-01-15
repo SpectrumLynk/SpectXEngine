@@ -1,0 +1,38 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "jsx": "preserve",
+        "incremental": true,
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+            "@web-kernel/core/*": [
+                "../../packages/core/src/*"
+            ],
+            "@web-kernel/db/*": [
+                "../../packages/db/src/*"
+            ],
+            "@web-kernel/auth/*": [
+                "../../packages/auth/src/*"
+            ],
+            "@web-kernel/ai/*": [
+                "../../packages/ai/src/*"
+            ]
+        }
+    },
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
