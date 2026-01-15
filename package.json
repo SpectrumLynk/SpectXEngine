@@ -1,8 +1,12 @@
 {
-    "name": "unified-enterprise-web-kernel",
+    "name": "spectxengine",
     "version": "1.0.0",
     "private": true,
-    "description": "AI-governed, enterprise-grade monorepo foundation for web and PWA projects",
+    "description": "Enterprise-grade web framework for building vibe coding and production applications",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SpectrumLynk/SpectXEngine.git"
+    },
     "scripts": {
         "dev": "pnpm --parallel --filter \"./apps/*\" dev",
         "build": "pnpm --recursive --filter \"./apps/*\" build",

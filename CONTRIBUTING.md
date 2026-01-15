@@ -1,6 +1,6 @@
-# Contributing to Web Kernel
+# Contributing to SpectXEngine
 
-Thank you for your interest in contributing! This project is governed by `system.json` rules.
+Thank you for your interest in contributing! SpectXEngine is governed by `system.json` rules to maintain quality and consistency.
 
 ## Development Workflow
 

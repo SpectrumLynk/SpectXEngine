@@ -1,107 +1,144 @@
-# Unified Enterprise Web Kernel
+# SpectXEngine
 
-🚀 **AI-governed, enterprise-grade monorepo foundation for web and PWA projects**
+**The All-in-One Enterprise Web Kernel for Vibe Coding & Production Applications**
 
-A production-ready Next.js-based framework compliant with [system.json](../sys-arch/system.json) specifications, featuring mandatory MFA, RBAC, AI governance, and architectural enforcement.
+[![License](https://img.shields.io/badge/license-Open%20Source-blue.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-## ✨ Features
+> Build production-grade web applications at the speed of thought. SpectXEngine combines enterprise reliability with vibe-coding velocity.
 
-### 🔒 Security First
-- **Mandatory MFA**: TOTP, WebAuthn (Passkeys), Email backup codes
-- **RBAC**: Role-based access control with deny-by-default
-- **Stateless JWT**: Token rotation every 15 minutes
-- **Rate Limiting**: Adaptive throttling with overload protection
-- **Immutable Audit Logs**: Complete activity tracking
+## What is SpectXEngine?
 
-### 🤖 AI-Governed
-- **JSON Compliance**: All changes validated against `system.json`
-- **Change Protocol**: Mandatory dependency analysis and multi-file updates
-- **Forbidden Practices**: Automatic detection and prevention
-- **Architecture Protection**: No unauthorized mutations
+SpectXEngine is a **production-ready, AI-governed web framework** that eliminates the boilerplate and lets you focus on building. Whether you're prototyping rapidly (vibe coding) or deploying mission-critical systems, SpectXEngine provides:
 
-### ⚡ Performance Optimized
-- **Bundle Budgets**: <250KB initial load enforced
-- **Time to Interactive**: <2s target (p95: 200ms, p99: 500ms)
-- **Code Splitting**: Automatic lazy loading
-- **Structured Logging**: Performance metrics tracked
+- **Zero-config production setup** - Start building immediately
+- **Enterprise security built-in** - MFA, RBAC, audit logging, rate limiting
+- **AI-powered guardrails** - Automatic code governance and compliance
+- **Performance by default** - <250KB bundles, <2s TTI enforced
+- **Full observability** - Structured logging, metrics, distributed tracing
 
-### 📱 PWA Ready
-- **Installable**: Native app experience
-- **Offline Support**: Selective caching
-- **Service Worker**: Managed automatically
+## Features
 
-## 🏗️ Architecture
+### Core Infrastructure
+- **Monorepo Architecture** - Single command starts everything (`pnpm dev`)
+- **Runtime Bootstrap** - Automatic DB migrations, health checks, graceful shutdown
+- **Error Code System** - 40+ categorized error codes for debugging
+- **Request Tracing** - Every request gets correlation ID and request ID
 
-```
-web-kernel/
-├── apps/
-│   └── web/              # Next.js 14 App Router
-│       ├── src/app/      # Routes and pages
-│       └── public/       # Static assets
-├── packages/
-│   ├── core/            # Infrastructure (logging, cache, queue, metrics)
-│   ├── db/              # Prisma abstraction (PostgreSQL/MySQL/MongoDB/SQLite)
-│   ├── auth/            # JWT, MFA, RBAC, password hashing
-│   └── ai/              # Governance, compliance, change protocol
-├── tests/
-│   └── e2e/             # Playwright tests
-└── .github/
-    └── workflows/        # CI/CD pipeline
-```
+### Security & Authentication
+- **Mandatory MFA** - TOTP, WebAuthn (Passkeys), Email backup
+- **RBAC** - Role-based access control with deny-by-default
+- **Stateless JWT** - Token rotation every 15 minutes
+- **Rate Limiting** - Adaptive throttling with overload protection
+- **Audit Logs** - Immutable activity tracking
 
-## 🚀 Quick Start
+### Database & Persistence
+- **Multi-Engine Support** - PostgreSQL, MySQL, MongoDB, SQLite
+- **Prisma ORM** - Type-safe database operations
+- **Auto-Migration** - Runs on production startup
+- **Mandatory Pagination** - Prevents N+1 queries
 
-### Prerequisites
-- **Node.js**: >=18.0.0
-- **pnpm**: >=8.0.0
+### Observability
+- **Structured Logging** - JSON-only, professional (no emojis), error codes mandatory
+- **Performance Metrics** - API latency tracking (p95/p99)
+- **Distributed Tracing** - Request flows across services
+- **Health Checks** - `/api/health` endpoint
 
-### Installation
+### AI Governance
+- **JSON Compliance** - All changes validated against system.json rules
+- **Change Protocol** - Enforces multi-file updates and test requirements
+- **Forbidden Practices** - Auto-prevents hardcoded configs, magic globals, etc.
+- **Architecture Protection** - No unauthorized mutations
+
+### PWA Ready
+- **Installable** - Native app experience
+- **Offline Support** - Selective caching
+- **Service Worker** - Auto-managed
+
+### Testing & Quality
+- **Vitest** - Unit and integration tests
+- **Playwright** - Cross-browser E2E tests
+- **Coverage** - 80% minimum target
+- **CI/CD** - GitHub Actions pipeline
+
+## Quick Start
 
 ```bash
+# Prerequisites: Node.js 18+, pnpm 8+
+
 # Clone the repository
-cd web-kernel
+git clone https://github.com/SpectrumLynk/SpectXEngine.git
+cd SpectXEngine
 
 # Install dependencies
 pnpm install
 
-# Copy environment file
+# Configure environment
 cp .env.example .env
-
-# Edit .env with your configuration
-# - Set DATABASE_URL
-# - Set JWT_SECRET (min 32 characters)
-# - Configure WebAuthn for your domain
+# Edit .env with your DATABASE_URL and JWT_SECRET
 
 # Initialize database
 cd packages/db
 pnpm db:generate
 pnpm db:migrate
-
-# Start development server (single command!)
 cd ../..
+
+# Start development
 pnpm dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000)
 
-## 📦 Available Commands
+## Project Structure
+
+```
+SpectXEngine/
+├── apps/
+│   └── web/              # Next.js 14 App Router
+│       ├── src/app/      # Routes and pages
+│       ├── src/middleware.ts  # Request tracing
+│       └── src/instrumentation.ts  # Bootstrap hook
+│
+├── packages/
+│   ├── core/            # Infrastructure (logging, cache, queue, metrics)
+│   ├── db/              # Prisma abstraction (multi-engine)
+│   ├── auth/            # JWT, MFA, RBAC, password hashing
+│   └── ai/              # Governance, compliance, change protocol
+│
+├── tests/
+│   └── e2e/             # Playwright tests
+│
+└── docs/                # Documentation
+```
+
+## Architecture Philosophy
+
+SpectXEngine follows strict architectural principles defined in `system.json`:
+
+1. **JSON is the Law** - All governance rules codified
+2. **Security by Default** - No bypasses, deny-by-default
+3. **Performance as a Feature** - Budgets enforced in CI
+4. **AI-First** - Governance automation built-in
+5. **No Manual Rearchitecture** - Framework evolves, you don't rewrite
+
+## Key Commands
 
 ```bash
 # Development
-pnpm dev              # Start all apps in development mode
-pnpm build            # Build all apps for production
-pnpm start            # Start production servers
+pnpm dev              # Start all apps
+pnpm build            # Production build
+pnpm start            # Start production
 
 # Testing
 pnpm test             # Run unit tests
-pnpm test:watch       # Run tests in watch mode
-pnpm test:coverage    # Generate coverage report (target: 80%)
-pnpm test:e2e         # Run E2E tests with Playwright
+pnpm test:e2e         # Run E2E tests
+pnpm test:coverage    # Generate coverage
 
 # Quality
-pnpm lint             # Lint all code
-pnpm lint:fix         # Auto-fix linting issues
-pnpm format           # Format code with Prettier
+pnpm lint             # Lint code
+pnpm lint:fix         # Auto-fix issues
 pnpm type-check       # TypeScript validation
 
 # Database
@@ -114,224 +151,133 @@ pnpm db:studio        # Open Prisma Studio
 pnpm analyze          # Bundle size analysis
 ```
 
-## 🔐 Authentication Flow
+## Professional Logging
 
-### User Registration
-1. User provides email + password (strength validated)
-2. **MFA Setup** (MANDATORY - no bypass)
-   - Choose: TOTP, WebAuthn, or Email backup
-   - TOTP: Scan QR code with authenticator app
-   - WebAuthn: Register passkey (fingerprint/Face ID)
-   - Email: Receive backup codes
-3. Account created with JWT tokens
-
-### Login
-1. Email + Password validation
-2. **MFA Challenge** (always required)
-3. Issue access token (15min) + refresh token (7d)
-4. Token rotation on refresh
-
-## 🛡️ RBAC Authorization
+All logs are structured JSON with mandatory error codes:
 
 ```typescript
-import { rbacService, createDefaultRoles } from '@web-kernel/auth';
+import { logger, ErrorCode } from '@web-kernel/core';
 
-const rolePermissions = createDefaultRoles();
+// Info logs
+logger.info('User logged in', { userId, requestId, correlationId });
 
-// Check permission (deny by default)
-const canEdit = rbacService.hasPermission(
-  userRoles,          // ['user', 'editor']
-  rolePermissions,
-  'profile',          // resource
-  'update'            // action
+// Error logs (error code required)
+logger.error(
+  'Database query failed',
+  ErrorCode.DB_QUERY_FAILED,
+  error,
+  { userId, query }
 );
-
-// Require permission (throws on deny)
-rbacService.requirePermission(userRoles, rolePermissions, 'admin', 'delete');
 ```
 
-### Default Roles
-- **admin**: All permissions (`*:*`)
-- **user**: Read/update own profile and settings
-- **guest**: Read public content only
+## Request Tracing
 
-## 🤖 AI Governance
+Every request automatically gets:
+- `x-request-id` - Unique request identifier
+- `x-correlation-id` - Cross-service correlation
+- User context (if authenticated)
+- Full distributed trace
 
-The AI agent runtime enforces `system.json` rules:
+## Error Codes
 
-```typescript
-import { agentRuntime, complianceValidator } from '@web-kernel/ai';
+SpectXEngine uses a comprehensive error code system:
 
-// Check operation permission
-complianceValidator.canPerformOperation('modify'); // true/false
+- **SYS (1000-1999)** - System errors
+- **AUTH (2000-2999)** - Authentication errors
+- **DB (3000-3999)** - Database errors
+- **VAL (4000-4999)** - Validation errors
+- **API (5000-5999)** - API errors
+- **AI (6000-6999)** - AI/Governance violations
+- **BIZ (7000-7999)** - Business logic errors
+- **EXT (8000-8999)** - External service errors
 
-// Propose change (validates against protocol)
-const result = await agentRuntime.proposeChange({
-  changes: [
-    { path: 'src/utils.ts', type: 'modify', content: '...' },
-    { path: 'src/utils.test.ts', type: 'modify', content: '...' },
-  ],
-  description: 'Refactor utility functions',
-  dependencyAnalysis: true,
-  testsIncluded: true,
-});
+## Performance Budgets
 
-if (!result.approved) {
-  console.error('Violations:', result.violations);
-  // Auto-rollback triggered
-}
-```
+| Metric | Budget | Enforcement |
+|--------|--------|-------------|
+| Initial Load | <250KB | Webpack (fails build) |
+| Time to Interactive | <2s | Monitored |
+| API P95 | <200ms | Metrics validation |
+| API P99 | <500ms | Metrics validation |
 
-### Forbidden Practices (Auto-Prevented)
-- Hardcoded configuration
-- Magic globals
-- Unchecked user input
-- Implicit side effects
-- Partial feature implementation
-- Single-file changes with dependencies
-
-## 📊 Observability
-
-### Structured Logging
-```typescript
-import { logger, createLogger } from '@web-kernel/core';
-
-logger.info('User logged in', { userId: '123', method: 'webauthn' });
-logger.error('Database connection failed', error, { retryCount: 3 });
-
-// Child logger with context
-const requestLogger = logger.child({ requestId: 'req-456' });
-requestLogger.debug('Processing request');
-```
-
-### Metrics
-```typescript
-import { metrics } from '@web-kernel/core';
-
-metrics.recordApiLatency('/api/users', 45); // ms
-metrics.recordError('ValidationError', '/api/auth');
-metrics.recordAiDecision('file:modify', 120, true);
-
-// Validate performance budgets
-const perf = metrics.validateApiPerformance('/api/users');
-// { p95: 180, p99: 420, withinBudget: true }
-```
-
-### Distributed Tracing
-```typescript
-import { tracing } from '@web-kernel/core';
-
-const span = tracing.startSpan('database:query');
-// ... perform operation ...
-tracing.endSpan(span.spanId, { rowsAffected: 10 });
-```
-
-## 🗄️ Database
-
-### Supported Engines
-- PostgreSQL (recommended)
-- MySQL
-- MongoDB
-- SQLite (development fallback)
-
-### Pagination (Mandatory)
-```typescript
-import { db, paginate } from '@web-kernel/db';
-
-const result = await paginate(
-  db.getClient().user.findMany({
-    skip: (page - 1) * pageSize,
-    take: pageSize,
-  }),
-  db.getClient().user.count(),
-  { page: 1, pageSize: 20 }
-);
-
-// result.data, result.pagination.total, result.pagination.totalPages
-```
-
-## 🧪 Testing
-
-### Unit Tests (Vitest)
-```bash
-pnpm test
-# Coverage target: 80% minimum
-```
-
-### E2E Tests (Playwright)
-```bash
-pnpm test:e2e
-# Tests on: Chrome, Firefox, Safari, Mobile Chrome
-```
-
-## 🚢 Deployment
+## Deployment
 
 ### Environment Variables
+
 ```bash
-# Production
-NODE_ENV=production
+# Required
 DATABASE_URL=postgresql://...
-JWT_SECRET=min-32-char-secret
+JWT_SECRET=your-32-char-minimum-secret
+NODE_ENV=production
+
+# Optional
 WEBAUTHN_RP_ID=yourdomain.com
 WEBAUTHN_ORIGIN=https://yourdomain.com
 ```
 
-### Build
+### Production Build
+
 ```bash
 pnpm build
-# Enforces bundle size budgets
-# Fails if >250KB initial load
+# Vercel, Netlify, or your platform
 ```
 
-### Docker (Optional)
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY . .
-RUN corepack enable && pnpm install && pnpm build
-CMD ["pnpm", "start"]
-```
+## Use Cases
 
-## 📚 Documentation
+### Vibe Coding (Rapid Prototyping)
+- **Zero config** - Start coding immediately
+- **Hot reload** - See changes instantly
+- **AI guardrails** - Stay compliant while moving fast
+- **Built-in auth** - No setup needed
 
-- [Developer Guide](./docs/developer-guide.md) - Architecture details
-- [API Contracts](./docs/api-contracts.md) - Versioning and contracts
-- [Contributing](./CONTRIBUTING.md) - Contribution guidelines
+### Production Applications
+- **Enterprise security** - MFA, RBAC, audit logs
+- **Performance tracking** - Real-time metrics
+- **Automatic migrations** - DB updates on deploy
+- **Health monitoring** - Built-in endpoints
 
-## 🔧 Technology Stack
+## Documentation
 
-- **Frontend**: Next.js 14, React 18, TypeScript, Tailwind CSS
-- **State**: Zustand
-- **Backend**: Node.js/Bun, Next.js API Routes
-- **Database**: Prisma (multi-engine support)
-- **Auth**: JWT, bcrypt, otplib, SimpleWebAuthn
-- **Testing**: Vitest, Playwright
-- **CI/CD**: GitHub Actions
-- **Linting**: ESLint, Prettier
+- **[Architecture Guide](docs/bootstrap-completion.md)** - System design and patterns
+- **[API Reference](docs/api-contracts.md)** - Endpoint documentation
+- **[Contributing](CONTRIBUTING.md)** - How to contribute
+- **[System.json](../sys-arch/system.json)** - Complete governance rules
 
-## 🎯 Performance Budgets (Enforced)
+## Contributing
 
-| Metric | Budget | Status |
-|--------|--------|--------|
-| Initial Load | <250KB | ✅ Enforced |
-| Time to Interactive | <2s | ✅ Monitored |
-| API P95 | <200ms | ✅ Validated |
-| API P99 | <500ms | ✅ Validated |
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-## 📄 License
+All contributions must:
+- Pass JSON compliance validation
+- Include tests
+- Follow error code standards
+- Pass CI/CD pipeline
 
-Open source only (per system.json)
+## Technology Stack
 
-## 🤝 Contributing
+| Layer | Technology |
+|-------|-----------|
+| **Frontend** | Next.js 14, React 18, TypeScript, Tailwind CSS |
+| **State** | Zustand |
+| **Backend** | Node.js/Bun, Next.js API Routes |
+| **Database** | Prisma (PostgreSQL, MySQL, MongoDB, SQLite) |
+| **Auth** | JWT, bcrypt, otplib, SimpleWebAuthn |
+| **Testing** | Vitest, Playwright |
+| **CI/CD** | GitHub Actions |
+| **Linting** | ESLint, Prettier |
 
-This project is governed by `system.json`. All contributions must:
-1. Pass JSON compliance validation
-2. Include dependency analysis
-3. Update tests
-4. Pass CI/CD pipeline
+## License
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+Open Source (see LICENSE)
+
+## Community
+
+- **GitHub**: [SpectrumLynk/SpectXEngine](https://github.com/SpectrumLynk/SpectXEngine)
+- **Issues**: [Report bugs](https://github.com/SpectrumLynk/SpectXEngine/issues)
+- **Discussions**: [Start a discussion](https://github.com/SpectrumLynk/SpectXEngine/discussions)
 
 ---
 
-**Built with ❤️ following system.json governance**
+**Built with ❤️ by SpectrumLynk**
+
+*SpectXEngine - Where Enterprise meets Velocity*
